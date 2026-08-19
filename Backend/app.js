@@ -3,16 +3,19 @@ import { config } from "dotenv";
 import cors from "cors"
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
+import fs from "fs";
 import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import userRouter from "./router/userRouter.js"
 import messageRouter from "./router/messageRouter.js"
 import appointmentRouter from "./router/appointmentRouter.js"
+import phase1Router from "./router/phase1/index.js";
 
 const app = express();
 
 
-config({ path: "./config/config.env" })
+const envPath = fs.existsSync("./config/config.env") ? "./config/config.env" : "./.env";
+config({ path: envPath })
 
 app.use(cors(
     {
@@ -34,6 +37,7 @@ app.use(fileUpload({
 app.use("/api/v1/message", messageRouter)
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/appointment", appointmentRouter)
+app.use("/api/v1", phase1Router)
 
 dbConnection();
 
