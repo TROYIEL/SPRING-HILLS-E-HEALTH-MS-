@@ -9,9 +9,9 @@ export const createPatient = catchAsyncErrors(async (req, res) => {
 });
 
 export const getPatient = catchAsyncErrors(async (req, res) => {
-  res.status(200).json({ success: true, message: "Phase 1 patient detail stub", tenant: req.tenant, patientId: req.params.patientId });
+  res.status(200).json({ success: true, message: "Phase 1 patient detail stub", tenant: req.tenant });
 });
 
 export const updatePatient = catchAsyncErrors(async (req, res) => {
-  res.status(200).json({ success: true, message: "Phase 1 patient update stub", tenant: req.tenant, patientId: req.params.patientId, payload: req.body });
+  res.status(200).json({ success: true, message: "Phase 1 patient update stub", tenant: req.tenant, payload: req.body });
 });

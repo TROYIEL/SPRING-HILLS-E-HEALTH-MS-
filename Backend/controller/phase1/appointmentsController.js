@@ -9,5 +9,5 @@ export const createAppointment = catchAsyncErrors(async (req, res) => {
 });
 
 export const updateAppointment = catchAsyncErrors(async (req, res) => {
-  res.status(200).json({ success: true, message: "Phase 1 appointment update stub", tenant: req.tenant, appointmentId: req.params.appointmentId, payload: req.body });
+  res.status(200).json({ success: true, message: "Phase 1 appointment update stub", tenant: req.tenant, payload: req.body });
 });
