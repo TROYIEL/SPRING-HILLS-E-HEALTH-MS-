@@ -11,8 +11,13 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar";
 import { Context } from "./main";
 import axios from "axios";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import Loading from "./components/loading"; 
+import PatientRoute from "./phase1/PatientRoute";
+import AuthPlaceholder from "./phase1/pages/AuthPlaceholder";
+import DashboardPlaceholder from "./phase1/pages/DashboardPlaceholder";
+import AppointmentsPlaceholder from "./phase1/pages/AppointmentsPlaceholder";
+import BillingPlaceholder from "./phase1/pages/BillingPlaceholder";
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated, setUser } = useContext(Context);
@@ -50,6 +55,31 @@ const App = () => {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/portal/auth" element={<AuthPlaceholder />} />
+          <Route
+            path="/portal/dashboard"
+            element={
+              <PatientRoute isAuthenticated={isAuthenticated}>
+                <DashboardPlaceholder />
+              </PatientRoute>
+            }
+          />
+          <Route
+            path="/portal/appointments"
+            element={
+              <PatientRoute isAuthenticated={isAuthenticated}>
+                <AppointmentsPlaceholder />
+              </PatientRoute>
+            }
+          />
+          <Route
+            path="/portal/billing"
+            element={
+              <PatientRoute isAuthenticated={isAuthenticated}>
+                <BillingPlaceholder />
+              </PatientRoute>
+            }
+          />
         </Routes>
         <Footer/>
         <ToastContainer position="top-center" />

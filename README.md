@@ -1,145 +1,77 @@
+# SPRING HILLS UHMS - Phase 1 Foundation
 
+This repository now includes a **Phase 1 foundation** for a universal, multi-hospital management system while preserving existing backend/frontend behavior.
 
-# Hospital Management System - Full Stack Project
+## Repository Structure
+- `Backend/` - Existing Node.js/Express API + Phase 1 API scaffolding
+- `Frontend-Admin/` - Existing admin app + Phase 1 role-aware placeholders
+- `Frontend-Patient/` - Existing patient app + Phase 1 portal placeholders
+- `docs/` - Phase 1 roadmap, architecture, RBAC matrix, API contract
+- `nginx/` - Optional local reverse proxy config
 
-This project is a comprehensive **Hospital Management System** featuring a responsive design for both administrators and patients. It includes a backend service and two separate frontend implementations for managing hospital operations and patient interactions.
+## Phase 1 Highlights
+- Auth + RBAC foundation (`roles`, `permissions`, middleware scaffolding)
+- Multi-hospital tenancy pattern (`hospital_id`, `branch_id`)
+- Core API slices under `/api/v1/*`
+- Patient/appointment/billing/encounter/audit contract scaffolding
+- SQL schema blueprint for enterprise migration
+- Seed strategy with **hashed** demo user credentials only
 
-## Features
-
-### [Admin Panel:](https://lifecare-administration.netlify.app)
-- **Doctor Management**: Register and manage doctor profiles.
-- **Admin Management**: Add new administrators.
-- **Appointment Management**: View, approve, or reject patient appointments.
-- **Patient Messages**: Read and respond to patient messages.
-
-### [Patient Portal:](https://lifecare-hospitals.netlify.app)
-- **Registration and Login**: Patients can register and log in.
-- **Appointment Booking**: Schedule appointments with doctors, including patient details and date.
-- **Message Sending**: Send messages to the admin.
-- **Hospital Information**: Learn about Life Care Hospital.
-
-## Project Structure
-
-The project is organized into the following main folders:
-
-- **Backend**: Contains the server-side code for handling API requests, authentication, and database interactions.
-- **Frontend-Admin**: The responsive frontend for hospital administrators.
-- **Frontend-Patient**: The responsive frontend for patients.
-
+## Quick Start (Local Node)
 ### Backend
-The backend is built using Node.js and Express, and it includes:
-- **Dependencies**: `bcrypt`, `cloudinary`, `cookie-parser`, `cors`, `dotenv`, `express`, `express-fileupload`, `jsonwebtoken`, `mongoose`, `validator`.
-- **Features**: Error handling, input validation, token generation, and user schemas.
+```bash
+cd Backend
+npm install
+cp .env.example .env
+npm run dev
+```
 
-### Frontend - Admin
-The admin panel is built with React.js and provides a responsive interface for managing hospital operations.
+### Frontend Admin
+```bash
+cd Frontend-Admin
+npm install
+cp .env.example .env
+npm run dev
+```
 
-### Frontend - Patient
-The patient portal is also built with React.js, offering a responsive design for patient interactions.
+### Frontend Patient
+```bash
+cd Frontend-Patient
+npm install
+cp .env.example .env
+npm run dev
+```
 
-## Technologies Used
+## Quick Start (Docker Compose)
+```bash
+docker compose up --build
+```
 
-- **Frontend**: React.js, Bootstrap, Axios
-- **Backend**: Node.js, Express, MongoDB, JWT, Bcrypt
-- **Other**: Cloudinary for image uploads, dotenv for environment variables, cookie-parser for handling cookies.
+Services:
+- Backend: `http://localhost:4000`
+- Frontend Admin: `http://localhost:5174`
+- Frontend Patient: `http://localhost:5175`
+- Nginx Gateway: `http://localhost:8080`
 
-## Getting Started
+## Demo Seed Users (credential reference)
+Credential pairs are documented for operational convenience; seed artifacts store only hashed password values.
 
-To get started with the project, follow these instructions:
+- superadmin@uhms.com / SuperAdmin@2026
+- admin@hospital.com / Admin@2026
+- doctor@hospital.com / Doctor@2026
+- frontdesk@hospital.com / FrontDesk@2026
+- patient@hospital.com / Patient@2026
+- nurse@hospital.com / Nurse@2026
+- pharmacy@hospital.com / Pharmacy@2026
+- lab@hospital.com / Lab@2026
+- billing@hospital.com / Billing@2026
 
-### Prerequisites
+## Documentation
+- `docs/PHASE1_ROADMAP.md`
+- `docs/ARCHITECTURE.md`
+- `docs/RBAC_MATRIX.md`
+- `docs/API_PHASE1.md`
 
-- Node.js and npm (Node Package Manager) installed on your system.
-- A running backend server (see the backend section for setup instructions).
-
-### Installation
-
-1. **Clone the repository:**
-
-   ```bash
-    git clone https://github.com/Fairooz2150/Hospital-Management-System.git
-   ```
-    - First open Hospital-Management-System folder:
-     ```bash
-     cd Hospital-Management-System
-     ```
-
-2. **Navigate to each folder and install dependencies:**
-
-   - For Backend:
-     ```bash
-     cd Backend
-     npm install
-     ```
-
-   - For Frontend-Admin:
-     ```bash
-     cd Frontend-Admin
-     npm install
-     ```
-
-   - For Frontend-Patient:
-     ```bash
-     cd Frontend-Patient
-     npm install
-     ```
-
-### Running the Application
-
-
-1. **Start the Backend server:**
-
-   ```bash
-   cd Backend
-   npm run dev
-   ```
-
-2. **Start the Frontend-Admin application:**
-
-   ```bash
-   cd Frontend-Admin
-   npm run dev
-   ```
-
-3. **Start the Frontend-Patient application:**
-
-   ```bash
-   cd Frontend-Patient
-   npm run dev
-   ```
-
-4. **Open your browser and navigate to:**
-   - Admin Panel: [http://localhost:5174](http://localhost:5174)
-   - Patient Portal: [http://localhost:5175](http://localhost:5175)
-
-### Environment Variables
-
-Ensure you have the following environment variables set in your `.env` file for the backend:
-
-- `PORT`: The port number for the backend server.
-- `MONGO_URI`: The MongoDB connection string.
-- `JWT_SECRET_KEY`: Secret key for JWT.
-- `JWT_EXPIRES`: JWT expiration time.
-- `CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name for image storage.
-- `CLOUDINARY_API_KEY`: Cloudinary API key.
-- `CLOUDINARY_API_SECRET`: Cloudinary API secret.
-
-### Creating an Admin User
-
-1. **Register a new patient user** by following the registration process on the Patient Portal.
-2. **Update the user's role** to "Admin" directly in the database:
-   - Open your MongoDB client (e.g., MongoDB Compass or your terminal).
-   - Find the `users` collection in your database.
-   - Locate the user document with the role of "Patient" that you registered.
-   - Update the `role` field from "Patient" to "Admin".
-
-### Contributing
-
-If you'd like to contribute to the project:
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/YourFeature`).
-3. Commit your changes (`git commit -am 'Add some feature'`).
-4. Push to the branch (`git push origin feature/YourFeature`).
-5. Create a new Pull Request.
-
-
+## Current Limitations
+- Phase 1 endpoints are scaffolded with placeholder handlers where implementation is pending.
+- Existing Mongo-backed modules remain active; SQL assets provide migration-ready foundation for PostgreSQL-oriented rollout.
